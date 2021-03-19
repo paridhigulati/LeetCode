@@ -1,68 +1,73 @@
-
+class Solution {
+public:
     
-         /*         // 0 -> not colored  , 1->blue, -1 -> red 
-    bool isValid(vector<vector<int>>graph, vector<int>color, int curr, int node )
-    {
-     // check if its already colored 
-        if(color[node]!=0)
-            return color[node] == curr;
-       
-        color[node] = curr;
-        
-        // to check for its adjacent nodes
-        for(int child : graph [node])
-        {
-            if(!isValid(graph, color, -curr, child))
-                return false;
+    
+    
+    
+    //DFS  TIME  O(V+E)   SPACE O(V)
+    
+ // -1 = color hasn't applied yet
+// 0 = red
+//1 = Blue
+
+/*   vector<vector<int>>adj;
+    int vis[101];
+    
+    int dfs(int node, int color){
+        if(vis[node]!=-1){
+            if(vis[node]==(1^color))return 1;
+            else return 0;
         }
-        return true;
+        vis[node]=color;
+        for(auto x:adj[node]){
+            if(dfs(x,color^1))return 1;
+        }
+        return 0;
     }
+    
     bool isBipartite(vector<vector<int>>& graph) {
-        
-        vector<int>color; // to store all the colors 
-        for(int i=0;i<graph.size();i++)
-        {
-            if(color[i]==0 && !isValid(graph,color, 1, i))
-            
-                return false;
-         }
-        
-            return true;
-      
+        this->adj=graph;
+        memset(vis,-1,sizeof vis);
+        for(int i=0;i<graph.size();i++){
+            if(vis[i]!=-1)continue;
+            if(dfs(i,0))return 0;    
+        }
+        return 1;
     }
 };
 */
-    class Solution {
-public:
-    vector<int>vis,col;
-    bool dfs(int v, int c, vector<vector<int>>& graph){
-        vis[v]=1;
-        col[v]=c;
-        for(int child:graph[v]){
-            if(vis[child]==0){
-                // here c^1 is for flipping 1 by 0 or 0 by 1, that is flip the current color
-                if(dfs(child,c^1,graph)==false) 
-                    return false;
-            }
-            else{
-                if(col[v]==col[child])
-                    return false;
-            }
-        }
-        return true;
+    
+    //BFS 
+    
+    /*color neighbors with opposite color if not colored, yet;
+ignore neighbors already colored with oppsite color;
+annouce the graph can't be bipartite if any neighbor is already colored with the same color.
+NOTE: The given graph might not be connected, so we will need to loop over all nodes before BFS. */
+
+  bool isBipartite(vector<vector<int>>& graph) {
+    int n = graph.size();
+    vector<int> color(n); // 0: uncolored; 1: color A; -1: color B
+        
+    queue<int> q; // queue, resusable for BFS    
+	
+    for (int i = 0; i < n; i++) {
+      if (color[i]) continue; // skip already colored nodes
+      
+      // BFS with seed node i to color neighbors with opposite color
+      color[i] = 1; // color seed i to be A (doesn't matter A or B) 
+      for (q.push(i); !q.empty(); q.pop()) {
+        int cur = q.front();
+        for (int neighbor : graph[cur]) 
+		{
+          if (!color[neighbor]) // if uncolored, color with opposite color
+          { color[neighbor] = -color[cur]; q.push(neighbor); } 
+		  
+          else if (color[neighbor] == color[cur]) 
+            return false; // if already colored with same color, can't be bipartite!
+        }        
+      }
     }
     
-    bool isBipartite(vector<vector<int>>& graph) {
-        int n=graph.size();
-        vis.resize(n);
-        col.resize(n);
-
-        for(int i=0;i<n;++i){
-            if(vis[i]==0 && dfs(i,0,graph)==false){ 
-                return false;
-            }
-        }
-        
-        return true;
-    }
+    return true;
+  }
 };
