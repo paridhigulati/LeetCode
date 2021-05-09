@@ -1,4 +1,4 @@
-
+  
 class Solution {
 public:
     int minCut(string s) {
@@ -33,12 +33,12 @@ public:
         strg[0] = 0;
         for(int j = 1;j<strg.size();j++)
         {
-            if(dp[0][j])
+            if(dp[0][j])  // puri string hi palindrome h to bool dp mai check kia aur storage mai 0 daldo
             {
-                strg[j] = 0;
+                strg[j] = 0; //e.g string aba hoti to direct ans hi zero tha loop chalane ki zarurat nhi 
             }
             else
-            {
+            { 
             int minv = INT_MAX;
             for(int i = j;i>=1;i--)
             {
