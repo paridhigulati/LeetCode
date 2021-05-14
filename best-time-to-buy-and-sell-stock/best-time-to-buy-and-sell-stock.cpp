@@ -1,14 +1,18 @@
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int maxP = 0;
-        int minP = 1e9;
+        
+        int minSoFar = INT_MAX;
+        int overallProfit =0;
+        int ProfitToday = 0;
         for(int i=0;i<prices.size();i++)
         {
-            minP = min(minP , prices[i]);
-            maxP = max(maxP, prices[i]-minP);
+            if(prices[i] < minSoFar )
+                minSoFar = prices[i];   
+                ProfitToday = prices[i]-minSoFar;
+            if(ProfitToday > overallProfit)
+                overallProfit = ProfitToday;
         }
-        return maxP;
-        
+        return overallProfit;
     }
 };
