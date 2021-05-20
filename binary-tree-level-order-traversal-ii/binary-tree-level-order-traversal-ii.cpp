@@ -10,9 +10,34 @@
  * };
  */
 class Solution {
-public:
-    
-    // find height of tree and reverse 
+public: 
+    // simply putting reverse at end of level order 1
+     vector<vector<int>> levelOrderBottom(TreeNode* root) {
+    vector<vector<int>> res;
+        queue<TreeNode*> q;
+        if(root == NULL)
+            return res;
+        q.push(root);
+        while(!q.empty()){
+            int size = q.size();
+            vector<int> data;
+            for(int i=1 ; i<=size ; i++){
+                TreeNode* item = q.front();
+            data.push_back(item -> val);
+            q.pop();
+            if(item -> left != NULL)
+                q.push(item->left);
+            if(item -> right != NULL)
+                q.push(item->right);
+            }
+            res.push_back(data);
+        }
+        reverse(res.begin() , res.end());
+        return res; 
+     }
+};
+    /*
+    // find height of tree and reverse  
    int height(TreeNode* root){
         if(!root) return 0;
         return 1+max(height(root->left),height(root->right));
@@ -31,4 +56,4 @@ public:
         reverse(ans.begin(),ans.end());
         return ans;
 	}
-};
+}; */
