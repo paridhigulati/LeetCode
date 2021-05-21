@@ -1,3 +1,5 @@
+
+//GAP METHOD
 class Solution {
 public:
     int minScoreTriangulation(vector<int>& values) {
@@ -34,3 +36,49 @@ public:
         return dp[0][n-1];
     }
 };
+/*
+Intuition: Given a set of numbers find an optimal solution for a problem considering the current number and the best you can get from the left and right sides.
+Top Down:
+
+class Solution {
+public:
+    int dynamic(vector<int>& A, vector<vector<int>>& dp, int i, int j){
+        if(abs(i-j)<=1)
+            return 0;
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        int k, ans=INT_MAX;
+        for(k=i+1; k<j; k++){
+            ans=min(ans, dynamic(A, dp, i, k)+A[i]*A[j]*A[k]+dynamic(A, dp, k, j));
+        }
+        dp[i][j]=ans;
+        return ans;
+    }
+    
+    int minScoreTriangulation(vector<int>& arr) {
+        int n=arr.size();
+        vector<vector<int>> dp(n, vector<int>(n, -1));
+        return dynamic(arr, dp, 0, n-1);
+    }
+};
+Bottom-Up:
+
+class Solution {
+public:
+    int minScoreTriangulation(vector<int>& arr) {
+        int len, i, j, k, n=arr.size();
+        vector<vector<int>> dp(n, vector<int>(n, INT_MAX));
+        for(i=0; i<n; i++){
+            dp[i][1]=0;
+        }
+        for(len=2; len<n; len++){
+            for(i=0; i<n-len; i++){
+                j=len;
+                for(k=i+1; k<i+j; k++){
+                    dp[i][j]=min(dp[i][j], dp[i][k-i]+arr[i]*arr[k]*arr[i+j]+dp[k][i+j-k]);
+                }
+            }
+        }
+        return dp[0][n-1];
+    }
+}; */
