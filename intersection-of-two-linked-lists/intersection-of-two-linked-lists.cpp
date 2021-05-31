@@ -9,6 +9,9 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        
+    
+        /* ok ok code -> O(M) + O(m-N) + O(n) => O(2M) 
 ListNode* cur = headA;
         int lenA = 0;
         while(cur != NULL){
@@ -42,4 +45,22 @@ ListNode* cur = headA;
         return NULL;
     
     }
+}; */
+        //basic approach USING HASHING O(m+n)
+        
+        //BEST WAY 
+        
+        if(headA==NULL ||headB ==NULL)
+        
+            return NULL;
+         ListNode* a = headA;
+        ListNode* b = headB;
+        while(a!=b)
+        {
+            a = a==NULL?headB:a->next;
+            b= b==NULL?headA:b->next;
+        }
+        return a;
+    }
 };
+        
