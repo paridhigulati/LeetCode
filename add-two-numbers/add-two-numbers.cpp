@@ -13,7 +13,7 @@ public:
     // this ques has only optimal ans so follow up ques/ edge case can be 
     //1. if first LL is smaller
     ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) {
-      
+  
     ListNode* dummy = new ListNode(0);
     ListNode* temp = dummy ;
     int carry=0;
@@ -33,8 +33,10 @@ public:
        sum+=carry;
       carry = sum/10;
       ListNode* node = new ListNode(sum%10);
+       
       temp->next = node;
       temp = temp->next;
+     
   }
     return dummy->next;
 }
