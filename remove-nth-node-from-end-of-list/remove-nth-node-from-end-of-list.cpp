@@ -8,27 +8,22 @@
  */
 class Solution {
 public:
-    /*
-    ListNode* removeNthFromEnd(ListNode* head, int n) {
-        ListNode* temp = new ListNode();
-        temp->next=head;
-        ListNode* fast = temp;
-        ListNode* slow = temp;
-        
-        for(int i=0;i<=n;i++)
-        {
-            fast=fast->next;
-        }
-        while(fast!=NULL)
-        {
-            fast=fast->next;
-            slow=slow->next;
-        }
-        slow->next = slow->next->next;
-        return temp->next;
-    }
+   // initially distance btwn slow and fast should be n and then increment 1 till null
+    
+   ListNode* removeNthFromEnd(ListNode* head, int n) {
+	ListNode *fast = head,
+       *slow = head;
+	while(n--)
+    fast = fast -> next;      // iterate first n nodes using fast
+	if(!fast) 
+    return head -> next;       // if fast is already null, it means we have to delete head itself. So, just return next of head
+	while(fast -> next)                  // iterate till fast reaches the last node of list
+		fast = fast -> next, slow = slow -> next;            
+	slow -> next = slow -> next -> next; // remove the nth node from last
+	return head;
+   }
 };
-*/
+
 
 // 2-pass approach , in 1st pass we are finding the length
 
@@ -57,14 +52,15 @@ public:
             counter = counter->next;
             counter->next = counter->next->next;
         }
-        return head;
+        slow->next = slow->next->next;
+        return head->next ;
         }
     
 };
 
 */
 
-
+/*
 
 
 
@@ -93,11 +89,7 @@ public:
 
 };
 
-
-
-
-
-
+*/
 
 
 
