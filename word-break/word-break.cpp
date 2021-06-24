@@ -1,32 +1,24 @@
+/*
+  Declare an array of size n+1. Here, each index of this array signifies if there is a dictionary word ending at that index.
+dp[0] = 1, because empty string "" is a part of each dictionary word.
+
+Now for, each iteration we check if there is a dictionary word ending at index i-1
+i.e. dp[i-1] != 0, and if there is then we check if any word of the dictionary is equal to substring from index i-1 i.e. s.substr(i-1, d[j].size()) == d[j]) */
+
 class Solution {
 public:
-   
-bool wordBreak(string s, vector<string>& dict) 
-    {
-        if(dict.size() == 0)
-            return false;
+    bool wordBreak(string s, vector<string>& wordDict) {
         int n = s.size();
-        bool t[n + 1];
-        memset(t, false, sizeof(t));
-        t[0] = true;
-        
-         for(int i = 1; i <= s.size(); i++)
+        vector<bool> dp(n+1, 0);
+        dp[0] = 1;
+        for (int i = 1; i < n+1; ++i)
         {
-            for(int j = i - 1;j >= 0; j--)
+            for (int j = 0; j < wordDict.size(); ++j)
             {
-                if(t[j])
-                {
-                    string str = s.substr(j, i - j);
-					auto it = find(dict.begin(), dict.end(), str);   //search for str in dictionary
-                    if(it != dict.end())
-                    {
-                        t[i] = true;
-                        break; 
-                    }
-                }
+                if (dp[i-1] && s.substr(i-1, wordDict[j].size()) == wordDict[j])
+                    dp[i+wordDict[j].size()-1] = 1;
             }
         }
-        
-        return t[n];
-    }   
+        return dp[n];
+    }
 };
