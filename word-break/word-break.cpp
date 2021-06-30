@@ -8,9 +8,11 @@ i.e. dp[i-1] != 0, and if there is then we check if any word of the dictionary i
 class Solution {
 public:
     bool wordBreak(string s, vector<string>& wordDict) {
+        
         int n = s.size();
         vector<bool> dp(n+1, 0);
         dp[0] = 1;
+       // cout<<wordDict.size();
         for (int i = 1; i < n+1; ++i)
         {
             for (int j = 0; j < wordDict.size(); ++j)
@@ -21,4 +23,30 @@ public:
         }
         return dp[n];
     }
-};
+}; /*
+        
+    if (wordDict.size() == 0) return false;
+           int n=s.size();
+
+    vector<bool> dp(n + 1, false);
+    dp[0] = true;
+
+    for (int i = 1; i <= n; i++)
+    {
+      for (int j = i - 1; j >= 0; j--)
+      {
+        if (dp[j])
+        {
+          string word = s.substr(j, i - j);
+          if (find(wordDict.begin(),wordDict.end(),word) != wordDict.end())
+          {
+            dp[i] = true;
+            break; 
+          }
+        }
+      }
+    }
+    return dp[n];
+  
+    }
+    }; */
