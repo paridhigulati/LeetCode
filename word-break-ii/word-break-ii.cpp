@@ -1,5 +1,7 @@
 class Solution {
 public:
+    /*
+    //BACKTRACKING METHOD 1 BRUTE  
     vector<string>sentence;
     vector<string> wordBreak(string s, vector<string>& wordDict) {
         unordered_set<string> st;
@@ -16,33 +18,46 @@ public:
         sentence.push_back(sent);
         return;
         }
-        //recursively check each char 
+        //recursively check each char and check whther that given substring exist in set else backtrack
         int n=s.size();
         for(int i=1;i<=n;i++)
         {
-           if(!st.count(s.substr(0,i)))
-              continue;
+           if(!st.count(s.substr(0,i)))  // if that substring is not found 
+              continue; // backtrack
             
-              solve(st,s.substr(i),sent + s.substr(0, i) + " ");
+              solve(st,s.substr(i),sent + s.substr(0, i) + " "); //moving to next char 
                    }
     }
-}; /*
+}; 
 
+To SOLVE THE PROBLEM OF REPEATING SUBPROBLEMS, WE WILL MEMOIZE IT AND USE A MAP
 
-void dfs(string s, string sentence, unordered_set<string>& setting)
-{
-    if(s.empty())
-    {
-        sentence.pop_back();
-        sentences.push_back(sentence);
-        return;
+*/
+    
+
+    map <string, vector<string>> dp;
+    
+    vector<string> ff(string s, set<string>& word_dict) {
+        vector<string> res;
+        if (dp.find(s) != dp.end()) return dp[s];
+        
+        for (int i = 1; i <= s.size(); i++) {
+            if (word_dict.find(s.substr(0, i)) != word_dict.end()) {
+                if (s.substr(i).length() == 0) {
+                    res.push_back(s.substr(0, i));
+                }
+                else {
+                    vector<string> subList = ff(s.substr(i), word_dict);
+                    for (auto sub : subList) res.push_back(s.substr(0, i) + " " + sub);
+                }
+            }
+        }
+        
+        return dp[s] = res;
     }
-    int n = s.size();
-    for(int i = 1; i <= n; i++)
-    {
-        if(!setting.count(s.substr(0, i)))
-            continue;
-        dfs(s.substr(i), sentence + s.substr(0, i) + " ", setting);
+    
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        set <string> word_dict(wordDict.begin(), wordDict.end());
+        return ff(s, word_dict);
     }
-}
-}; */
+};
