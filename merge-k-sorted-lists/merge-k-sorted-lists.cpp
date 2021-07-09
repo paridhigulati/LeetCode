@@ -8,52 +8,42 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-class Solution {
+
+   class Solution {
 public:
-        
-        //APPROACH 1 TC= O(KN) SC = O(1)  merge 2 LL (k-1) times
-
-ListNode *merge(ListNode* a, ListNode* b){
-    
-    if(!a)
-        return b;
-    
-    if(!b)
-        return a;
-        
-    ListNode *res;
-    
-    if(a->val<b->val){
-        res=a;
-        res->next=merge(a->next,b);
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        if(lists.empty())
+            return nullptr;
+        int n = lists.size();
+        while(n > 1){
+            for(int i = 0; i < n / 2; ++i)
+                lists[i] = mergeTwoLists(lists[i], lists[n - 1 - i]);
+            n = (n + 1) / 2;
+        }
+        return lists.front();
     }
-    else{
-        res=b;
-        res->next=merge(a,b->next);
-    }
+private:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2){
+        if(!l1)
+            return l2;
+        if(!l2)
+            return l1;
         
-    return res;
-}
-
-ListNode *util(vector<ListNode*>& lists, int i){
-    
-    if(i+1==lists.size())
-        return lists[i];
-    
-    return merge(lists[i],util(lists,i+1));
-}
-
-ListNode* mergeKLists(vector<ListNode*>& lists) {
-    
-    if(lists.size()==0)
-        return NULL;
-    
-    return util(lists,0);
-}
+        ListNode dummy(0);
+        ListNode* ans = &dummy;
+        
+        while(l1 && l2){
+            if(l1 -> val < l2 -> val){
+                ans -> next = l1;
+                l1 = l1 -> next;
+            }
+            else{
+                ans -> next = l2;
+                l2 = l2 -> next;
+            }
+            ans = ans -> next;
+        }
+        ans -> next = l1 ? l1 : l2;
+        return dummy.next;
+    }
 };
-        
-        
-        
-    
-
-
