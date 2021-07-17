@@ -1,7 +1,18 @@
 class Solution {
 public:
+    //  power of 2 will contains only 1 set bit 
     bool isPowerOfTwo(int n) {
-       int count =0;
+
+        if(n<=0) return false;
+        return !(n&(n-1)); 
+        
+    }
+};
+        
+        
+        
+        
+        /*    int count =0;
         while(n>0)
         {
         n = n&(n-1);
@@ -13,4 +24,4 @@ public:
             return false;
     }
 };
-// contains only 1 set bit 
+*/
