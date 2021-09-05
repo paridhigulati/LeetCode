@@ -33,6 +33,7 @@ public:
 };
 
 */
+  //  O(N), NOW WITH EACH CALL WE ARE GETTING BOTH HEIGHT AND DIAMETER TOGETHER
       int solve(TreeNode* root,int &res){
         
         if(root==NULL)
