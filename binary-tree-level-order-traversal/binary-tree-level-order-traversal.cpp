@@ -1,6 +1,7 @@
-
+//O(n) bfs
 class Solution {
-public:
+public: 
+    /*
        vector<vector<int>> levelOrder(TreeNode* root) {
           vector<vector<int>>ans;
         if(root==NULL) 
@@ -31,10 +32,9 @@ public:
         }
         return ans;
     }
-};
-  /* RECURSIVE O(N^2)
-  class Solution {
-public:
+}; */
+  /*RECURSIVE O(N^2)
+
 vector<vector<int>> levelOrder(TreeNode* root)
 {
 	vector<vector<int>> result;
@@ -57,3 +57,30 @@ void recur_levelOrder(vector<vector<int>> &result, TreeNode *root, int level)
     recur_levelOrder(result, root->right, level+1);
 }
 }; */
+    vector<vector<int>> levelOrder(TreeNode* root)
+    {
+         vector<vector<int>>ans;
+        if(root==NULL) return ans;
+        queue<TreeNode*>q;
+        q.push(root);
+       
+        while(!q.empty())
+        {
+            vector<int>level;
+            int n= q.size();
+            for(int i=0;i<n;i++)
+            {        
+                TreeNode* node = q.front();
+                q.pop();
+                level.push_back(node->val);
+                if(node->left) 
+                    q.push(node->left);
+                if(node->right)
+                    q.push(node->right);
+                 
+            }
+            ans.push_back(level);
+        }
+        return ans;
+    }
+};
