@@ -1,0 +1,47 @@
+int x[] = {-1,0,1,0};    // direction matric ( from up then clockwise (up-left-down-right)  )
+int y[] = {0,1,0,-1};
+class Solution {
+public:    
+    int maxDistance(vector<vector<int>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        
+        queue<pair<int,int>> q;
+        
+        // step 1 : pushing all "1" coordinates of land
+        for(int i=0 ; i<n ; i++)
+            for(int j=0 ; j<m ; j++)
+                if(grid[i][j] == 1)
+                    q.push({i,j});
+    
+        // EDGE CASE if matrix has no water then ans = -1 so return 
+        if(q.size() == n*m)
+            return -1;
+        
+        int dist = -1;
+        
+        // standard BFS
+        while(q.size())
+        {
+            int size = q.size();
+            dist++; // counting the level 
+            while(size--)
+            {
+                auto [si , sj] = q.front(); 
+                q.pop(); 
+                
+                for(int i=0 ; i<4; i++)
+                {
+                    int newi = si + x[i]; // TLDR from prev i,j coord of q.front
+                    int newj = sj + y[i];
+          if(newi>=0 and newi<n and newj>=0 and newj<m and grid[newi][newj] == 0) // is valid and  i,j = water
+                        q.push({newi,newj}) , grid[newi][newj] = 1; // push it and covert them to 1
+                }
+            }  
+        }
+        return dist; // the last level to be filled is the ans
+    }
+};   
+    
+// we start from 1 and apply bfs in TLDR to find nearest zeroes (L-0)
+// this continues and the last level which is filled becomes the ans
