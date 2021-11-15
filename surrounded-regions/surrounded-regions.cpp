@@ -1,15 +1,14 @@
 class Solution {
 public:
-    
-    void DFS(vector<vector<char>>& board, int i, int j, int m, int n)
-    {
-     if(i<0 or j<0 or i>=m or j>=n or board[i][j]!='O')
-         return;
-      board[i][j] = '#';
-        DFS(board, i-1, j, m, n);
-        DFS(board, i+1, j, m, n);
-        DFS(board, i, j-1, m, n);
-        DFS(board, i, j+1, m, n);
+      void dfs(int i,int j,vector<vector<char>>& grid){
+        if(i<0 ||i>=grid.size() || j<0 || j>=grid[0].size() || grid[i][j]==0)
+            return; // boundary wale 
+          if(grid[i][j]!='O') return;
+        grid[i][j]= '#'; // boundary wale connected components ko zero krdo
+        dfs(i+1,j,grid); 
+        dfs(i,j+1,grid);
+        dfs(i-1,j,grid);
+        dfs(i,j-1,grid);
     }
     
     void solve(vector<vector<char>>& board) {
@@ -29,22 +28,13 @@ public:
      int m = board.size(); 
      int n = board[0].size();
      
-     //Moving over first and last column   
-     for(int i=0; i<m; i++) {
-         if(board[i][0] == 'O')
-             DFS(board, i, 0, m, n);
-         if(board[i][n-1] == 'O')
-             DFS(board, i, n-1, m, n);
-     }
-        
-        
-     //Moving over first and last row   
-     for(int j=0; j<n; j++) {
-         if(board[0][j] == 'O')
-             DFS(board, 0, j, m, n);
-         if(board[m-1][j] == 'O')
-             DFS(board, m-1, j, m, n);
-     }
+         for(int i=0;i<m;i++){
+          for(int j=0;j<n;j++){
+       if(i==0 ||j==0 || i==m-1 || j==n-1) {
+              dfs(i,j,board);
+       }
+          }
+         }
     //now iterating over the matrix and if cell = x (valid) flip them else change to zero 
      for(int i=0; i<m; i++)
      for(int j=0; j<n; j++)
@@ -54,5 +44,6 @@ public:
              if(board[i][j] == '#')
                  board[i][j] = 'O';
          }
-    }
+    }      
+    
 };
