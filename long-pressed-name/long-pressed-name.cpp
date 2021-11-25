@@ -2,8 +2,7 @@ class Solution {
 public:
     bool isLongPressedName(string name, string typed) {
           
-       //
-        if(name.size() > typed.size()) return false;// no possibility 
+       
         int i =0, j=0; // initialize two pointers to 0
        
         while(i< name.size() && j <typed.size()){ // while loop till the size of name and typed string is greater than i and j respectively
@@ -21,7 +20,6 @@ public:
                   return false;
                j++;
         }
-        //return true;
         return i< name.size() ? false : true;
     }
 };
