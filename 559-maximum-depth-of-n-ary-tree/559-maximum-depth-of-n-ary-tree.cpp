@@ -20,9 +20,9 @@ public:
 
 class Solution {
 public:
-  
+
     
-      int maxDepth(Node* root) {
+   int maxDepth(Node* root) {
         if(root == NULL)
             return 0;
          int height = 0;
