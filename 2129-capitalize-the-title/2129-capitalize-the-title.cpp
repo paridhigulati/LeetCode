@@ -31,9 +31,10 @@ public:
 //                 return ans;
 //     }
 // };
- string ans ="";
+ 
 stringstream ss(title);
     string word;
+        string ans ="";
     while(ss>>word){
         //convert all into lower case first
         transform(word.begin(), word.end(), begin(word), ::tolower);
