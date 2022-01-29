@@ -2,7 +2,7 @@ class Solution {
 public:
     string kthDistinct(vector<string>& arr, int k) {
         
-        unordered_map<string,int>mp;
+        map<string,int>mp;
         //int count =0;
         for(string i : arr)
         {
