@@ -10,7 +10,7 @@
  */
 
 
-        //MIN HEAP SOLUTION 
+        //MIN HEAP SOLUTION  O(NLOGK)
        
         // Initially added heads of all the lists in the heap. In the first iteration, pop from heap would given minimum element and then we will push the next element of list we popped from and the process continues till all nodes are added in our answer list.
 class comparator{
@@ -23,7 +23,7 @@ class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         priority_queue<ListNode*,vector<ListNode*>,comparator> pq;
-        
+        cout<<lists.size();
         for(int i=0;i<lists.size();i++){
             if(lists[i])
                 pq.push(lists[i]);
