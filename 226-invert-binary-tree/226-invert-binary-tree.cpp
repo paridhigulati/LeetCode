@@ -13,30 +13,25 @@ class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
      
-        // 1. recursive    
-         if(root==NULL) return NULL;
-        // TreeNode* temp = root->left;
-        // root->left = invertTree(root->right);
-        // root->right = invertTree(temp);
-        // return root;
-        
-        //2. interative(bfs)
-        
         queue<TreeNode*>q;
+        
+        if(!root) return NULL;
+        
         q.push(root);
         while(!q.empty())
         {
-          TreeNode* temp = q.front();
+            TreeNode* tmp = q.front();
             q.pop();
-           //swap left , right
-            TreeNode* swp = temp->left;
-            temp->left = temp->right;
-            temp->right = swp;
-            //push left, right nodes to queue
-            if(temp->left )
-            q.push(temp->left);
-            if(temp->right)
-            q.push(temp->right);
+            
+          
+            TreeNode* swp = tmp->left;
+            tmp->left = tmp->right;
+            tmp->right = swp;
+            
+            if(tmp ->left)
+                q.push(tmp->left);
+            if(tmp->right)
+               q.push(tmp->right);
         }
         return root;
         
