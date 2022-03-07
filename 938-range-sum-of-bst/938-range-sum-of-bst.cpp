@@ -18,9 +18,10 @@ public:
         if(!root) return 0;
         
     
-        dfs(root->left, low, high);
+       
         if(root->val >= low and root->val <= high)
             sum += root->val;
+         dfs(root->left, low, high);
         dfs(root->right, low,high);
       
         return sum;
