@@ -16,7 +16,7 @@ public:
         for(auto i:wordList)
             s.insert(i);
         queue<string> q;
-        q.push(beginWord);
+       q.push(beginWord);
         int d=0;
         while(!q.empty())
         {
@@ -32,8 +32,7 @@ public:
                     for(char c='a';c<='z';c++)
                     {
                         tmp[i]=c;
-                        // if(tmp==curr)
-                        //     continue;
+                     
                         if(tmp==endWord)
                             return d+1;
                         if(s.find(tmp)!=s.end())
