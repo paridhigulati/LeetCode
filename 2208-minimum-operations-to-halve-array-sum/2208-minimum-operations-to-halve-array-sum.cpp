@@ -1,13 +1,13 @@
 class Solution {
 public:
-    
-    
-    
+
     int halveArray(vector<int>& nums) {
+        
         priority_queue<double>pq;
         
         double sum=0;
-        int count = 0;
+        int op = 0;
+        
         for(int i =0;i<nums.size();i++){
             sum += nums[i];
             pq.push(nums[i]);
@@ -16,13 +16,13 @@ public:
        while( sum > half)
        {
            
-           auto i = pq.top();
+           double oof = pq.top();
            pq.pop();
-            sum -= i/2;
-           pq.push(i/2);
+            sum -= oof/2;
+           pq.push(oof/2);
            
-           ++count;
+           op++;
        }
-        return count;
+        return op;
     }
 };
