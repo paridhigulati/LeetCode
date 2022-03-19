@@ -17,7 +17,6 @@ public:
     }
     
     int pop() {
-        if(maxFreq< 0) return -1;
         int ans = ds[maxFreq].top();
         ds[maxFreq].pop();
           mp[ans]--;
