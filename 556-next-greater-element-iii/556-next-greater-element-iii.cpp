@@ -24,9 +24,7 @@ public:
     {
         if(str[i] > str[index])
         {
-            // char temp = str[index];
-            // str[index] = str[i];
-            // str[i] = temp;
+          
             swap(str[index], str[i]);
             break;
         }
