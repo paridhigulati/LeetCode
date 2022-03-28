@@ -3,20 +3,29 @@ public:
     int removeDuplicates(vector<int>& nums) {
         
         //brute -> set
-       set<int>s;
-        int j=0;
-        for(int i=0;i<nums.size();i++)
+       // set<int>s;      
+       //  for(int i=0;i<nums.size();i++)        {
+       //      s.insert(nums[i]);        }
+       //  int j=0;
+       //  for(auto i : s)
+       //  {  nums[j] = i; //reaaranging in the nums too
+       //      j++;        
+       //  }
+       //  return s.size();
+        
+        
+        // 2POINTER
+        
+        int i=0;
+        for(int j=1;j<nums.size();j++)
         {
-            if(s.find(nums[i]) == s.end())
+            if(nums[i] != nums[j])
             {
-               s.insert(nums[i]);
-               nums[j] = nums[i];
-                j++;
+                i++; 
+                nums[i] = nums[j];
+            }
         }
-        }
-        return s.size();
-        
-        
+        return i+1;
         
         }
     };
