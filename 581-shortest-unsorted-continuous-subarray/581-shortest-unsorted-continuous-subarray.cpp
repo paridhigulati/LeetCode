@@ -2,47 +2,35 @@ class Solution {
 public:
     int findUnsortedSubarray(vector<int>& nums) {
      
-        // if found someone smaller on right, swap point  aur left par smaller 
-        
-       int mini = INT_MAX, maxi = INT_MIN;
-        
+      int mini = INT_MAX, maxi = INT_MIN;
         int n = nums.size();
         
-           for(int i=0;i<n-1;i++)
-           {
-            if(nums[i] > nums[i+1] )
-            {
-                mini = min(mini, nums[i+1]);
-          
+        for(int i = 1; i < n; i++){
+            //Decreasing Value
+            if(nums[i] < nums[i-1]) {
+                mini = min(mini,nums[i]);
             }
-            
-           }
-
-        for(int j=n-1; j>0;j --)
-        
-        {
-            if( nums[j] < nums[j-1])
-                maxi = max(maxi, nums[j-1]);
         }
         
-        int l=0,r=0;
-        for(int i=0;i<n;i++)
-        {
-            if(nums[i] > mini)
-            {
-                l=i;
-                break;
-            }
-                
-        }
-        for(int j=n-1;j>0;j--)
-        {
-            if(nums[j] < maxi)
-            {
-                r=j;
-                break;
+        for(int i = n-2; i >= 0; i--) {
+            //Increasing value
+            if(nums[i] > nums[i+1]){
+                maxi = max(maxi,nums[i]);
             }
         }
-        return r-l>0 ? r-l+1 : 0;
+        if(mini == INT_MAX && maxi == INT_MIN) // already sorted 
+            return 0;
+        
+        int start = 0, end = n-1;
+        
+        for(; start < n; start++) {
+            if(nums[start] > mini) break;
+        }
+        
+        for(; end >= 0; end--) {
+            if(nums[end] < maxi) break;
+        }
+        
+        return end-start+1;
     }
 };
