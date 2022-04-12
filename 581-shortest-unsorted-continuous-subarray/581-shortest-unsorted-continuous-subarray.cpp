@@ -25,7 +25,7 @@ public:
                 maxi = max(maxi, nums[j-1]);
         }
         
-        int l,r;
+        int l=0,r=0;
         for(int i=0;i<n;i++)
         {
             if(nums[i] > mini)
@@ -43,6 +43,6 @@ public:
                 break;
             }
         }
-        return r-l>=0 ? r-l+1 : 0;
+        return r-l>0 ? r-l+1 : 0;
     }
 };
