@@ -19,8 +19,9 @@ public:
               maxi = max(sum,maxi);
               sum -= Arr[i];
               i++;
+              
             }
-            j++;
+          j++;
         }
         return maxi;
     }
