@@ -10,7 +10,7 @@
  * };
  */
 class Solution {
-public:
+private:
      int sum  =0;
     void dfs(TreeNode* root)
     {
@@ -25,6 +25,7 @@ public:
             
             return;
     }
+    public:
     TreeNode* convertBST(TreeNode* root) {
        dfs(root); 
         return root;
