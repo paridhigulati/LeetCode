@@ -5,15 +5,16 @@ public:
         if(s.size() != t.size())
             return false;
         unordered_map<int,int>mp;
-        for(char i  : s)
+        for(int i=0;i<s.size();i++)
         {
-            mp[i]++;
-        }
-        for(char i : t)
-        {
-            mp[i]--;
-       
-        if(mp[i] < 0) return false;}
+            mp[s[i]]++;
+            mp[t[i]]--;
+               }
+       for(auto it : mp)
+       {
+           if(it.second) return false;
+       }
+      
         
         return true;
     }
