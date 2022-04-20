@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
         
-//         vector<int>res;
+//         vector<int>res; // o(n)
 //         unordered_map<int,int>mp;
 //         for(int i=0;i<nums.size();i++)
 //         {
@@ -21,25 +21,30 @@ public:
 //     }
 // };
         
-      //  2pointers, ==> sorted 
-        vector<pair<int,int>>v;
+      //  2pointers, ==> sorted  nlogn 
+     vector<pair<int,int>>v;
+        vector<int>ans;
         for(int i=0;i<nums.size();i++)
-            v.push_back({nums[i], i});
-        
-        sort(v.begin(), v.end());
-        int left =0, right = nums.size()-1;
-        while(left < right)
         {
-            int sum = v[left].first + v[right].first;
+            v.push_back({nums[i],i});
             
-            if(sum == target)
-               return { v[left].second, v[right].second};
-            else if(sum > target)
-                right--;
-            else
-                left++;
         }
-        return {};
+        sort(v.begin(), v.end());
+        int l = 0, r = nums.size()-1;
+        while(l < r)
+        {
+            int sum  = v[l].first + v[r].first ;
+            if(sum == target)
+            {
+                
+             return { v[l].second, v[r].second};
+            }
+                else if(sum > target)
+                    r--;
+            else
+                l++;
+        }
+     return {};
     }
 };
              
