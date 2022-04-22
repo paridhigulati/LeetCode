@@ -1,6 +1,6 @@
 class MyHashMap {
     
-    private : vector<vector<pair<int,int>>>v;
+      private : vector<vector<pair<int,int>>>v;
     const int size = 1000;
 public:
     MyHashMap() {
@@ -59,6 +59,7 @@ public:
     }
     }
 };
+
 
 /**
  * Your MyHashMap object will be instantiated and called as such:
