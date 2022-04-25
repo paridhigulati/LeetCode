@@ -2,17 +2,18 @@ class Solution {
 public:
     void sortColors(vector<int>& nums) {
         
-          int i=0, // j to i-1 // 1s area
-             j=0; // 0 to j-1 0s area
-        int k = nums.size()-1; //k+1 to end 2s area
-        // i++ when 1 j++ when 0 k-- when 2 
-        
-        // i to k is unknown
+          int i=0, j=0; 
+          int k = nums.size()-1; 
+          
         while(i<=k)
         {
             if(nums[i] == 2)
             {
-                swap(nums[i], nums[k]);
+                int tmp  = 2;
+                tmp = nums[i];
+                nums[i] = nums[k];
+                nums[k] = tmp;
+           
                  k--;
               
             }
@@ -22,7 +23,11 @@ public:
             }
             else
             {
-                swap(nums[i],nums[j]);
+              
+                int tmp = 0;
+                tmp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = tmp;
                 i++;
                 j++;
             }
