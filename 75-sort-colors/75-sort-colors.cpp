@@ -8,24 +8,20 @@ public:
         while(i<=k)
         {
             if(nums[i] == 2)
-            {
-                int tmp  = 2;
-                tmp = nums[i];
+            {             
+               int tmp = nums[i];
                 nums[i] = nums[k];
                 nums[k] = tmp;
-           
-                 k--;
-              
+                k--;
+
             }
            else if(nums[i]==1)
             {
                 i++;
             }
             else
-            {
-              
-                int tmp = 0;
-                tmp = nums[i];
+            {  
+               int tmp = nums[i];
                 nums[i] = nums[j];
                 nums[j] = tmp;
                 i++;
