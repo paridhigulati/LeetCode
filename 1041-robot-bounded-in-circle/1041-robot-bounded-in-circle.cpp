@@ -1,28 +1,34 @@
 class Solution {
 public:
     bool isRobotBounded(string s) {
-        pair<int,pair<int,int>> a;
-        a={1,{0,0}};
-        vector<pair<int,int>>v;
-        v.push_back({1,0});
-        v.push_back({0,1});
-        v.push_back({-1,0});
-        v.push_back({0,-1});
-        int g=4;
-        while(g--)
-        for(int i=0;i<s.size();i++){
-            if(s[i]=='G'){
-                a.second.first+=v[a.first].first;
-                a.second.second+=v[a.first].second;
+       vector<vector<int>> dir = {{0,1}, {-1, 0}, {0, -1}, {1,0}}; //make sure to maintian this order  NORTH WEST SOUTH EAST 
+        int x=0, y=0, itr=0;
+        
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i] == 'L')
+            {
+                itr = (itr+1)%4;
             }
-            else if(s[i]=='L'){
-                a.first=(a.first+3)%4;
+            else if(s[i] == 'R')
+            {
+                itr = (itr+3)%4;
             }
-            else if(s[i]=='R'){
-                a.first=(a.first+1)%4;
+            else
+            {
+                x += dir[itr][0];
+                y += dir[itr][1];
             }
         }
-        if(a.second.first==0 && a.second.second==0)return true;
-        return false;
-    }
+        //// If the robot perform 1 rotation, it means  "i != 0" then it will gauranteed perform a circle & after certain rotation it will come back to the origin.
+        // But if "i is  0" , it mean's robot is moving straight, hence there is no cycle. It will never come back to origin. 
+       
+            return (x==0 and y==0) || itr!=0;
+        }
 };
+        
+        
+        
+        
+        
+        
