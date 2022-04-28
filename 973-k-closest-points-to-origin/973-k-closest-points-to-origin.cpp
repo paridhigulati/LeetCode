@@ -22,3 +22,4 @@ public:
         return ans;
     }
 };
+//O(NLOGK)TC AND O(K) SC
