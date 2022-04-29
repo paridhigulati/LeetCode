@@ -9,33 +9,38 @@ annouce the graph can't be bipartite if any neighbor is already colored with the
 NOTE: The given graph might not be connected, so we will need to loop over all nodes before BFS.*/
 
   bool isBipartite(vector<vector<int>>& graph) {
-    int n = graph.size();
-    vector<int> color(n); // 0: uncolored; 1: color A; -1: color B
-        
-    queue<int> q; // queue, resusable for BFS    
-	
-    for (int i = 0; i < n; i++) {
-      if (color[i]) continue; // skip already colored nodes
-      
-      // BFS with seed node i to color neighbors with opposite color
-      color[i] = 1; // color seed i to be A (doesn't matter A or B) 
-     // for (q.push(i); !q.empty(); q.pop()) {
-        q.push(i);
-        while(!q.empty()){
-            
-        int cur = q.front();
-        for (int neighbor : graph[cur]) //checking for neighbours of curr
-		{
-          if (!color[neighbor]) // if uncolored, color with opposite color
-          { color[neighbor] = -color[cur]; q.push(neighbor); } 
-		  
-          else if (color[neighbor] == color[cur]) 
-            return false; // if already colored with same color, can't be bipartite!
-        } 
-            q.pop();
+ 
+      int n = graph.size();
+      vector<int>color(n);
+      queue<int>q;
+      for(int i=0;i<n;i++)
+      {
+         q.push(i);
+          
+         if(color[i]) // already colored
+          continue;
+          
+          color[i] = 1;
+          while(!q.empty())
+          {
+              int curr = q.front();
+              
+              for(auto itr : graph[curr])
+              {
+                  if(!color[itr])
+                  {
+                      color[itr] = -color[curr];
+                      q.push(itr);
+                  }
+                  else if (color[itr]==color[curr])
+                  {
+                      return false;
+                  }
+              }
+              q.pop();
+          }
+         
       }
-    }
-    
-    return true;
+       return true;
   }
 };
