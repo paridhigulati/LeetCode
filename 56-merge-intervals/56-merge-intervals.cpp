@@ -1,27 +1,26 @@
 class Solution {
 public:
-    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+    vector<vector<int>> merge(vector<vector<int>>& interval) {
     // optimal -> O(nlogn) 
         // sort by start time
        
-        sort(intervals.begin(), intervals.end());
-        vector<vector<int>>ans;
-     
-        vector<int>temp = intervals[0]; 
-        for(auto it : intervals )
+       vector<vector<int>> ans;
+        if(interval.size()==0)
+            return ans;
+        sort(interval.begin(),interval.end());
+        
+        ans.push_back(interval[0]);
+        int j=0;
+        for(int i=1;i<interval.size();i++)
         {
-            if(it[0] <= temp[1]) // comparing start time 2 and end time 1 
-            temp[1] = max(temp[1], it[1]);
-            else 
+            if(ans[j][1]>=interval[i][0]) //end > start : merge overlapping 
+                ans[j][1]=max(ans[j][1],interval[i][1]);
+            else
             {
-                ans.push_back(temp);
-                temp = it;
+                j++;
+                ans.push_back(interval[i]);
             }
         }
-        ans.push_back(temp);
         return ans;
-        
-   
-    
     }
 };
