@@ -1,7 +1,7 @@
 class Solution {
 public:
     
-    void dfs(string src, string dst, map<string, vector<pair<string, double>>>&mp, set<string>vis, double &ans, double tmp )
+    void dfs(string src, string dst, map<string, vector<pair<string, double>>>&mp, unordered_set<string>vis, double &ans, double tmp )
     {
         
         
@@ -36,7 +36,7 @@ public:
         for(int i=0;i<e.size();i++)
         {
             mp[e[i][0]].push_back({e[i][1], values[i]}); //build graph
-            mp[e[i][1]].push_back({e[i][0], 1/values[i]}); //build graph
+            mp[e[i][1]].push_back({e[i][0], 1/values[i]}); // a/b = 1/b/a
 
         }
         vector<double>res;
@@ -45,10 +45,10 @@ public:
         {
             string  src = q[i][0];
             string dst = q[i][1];
-            set<string>vis;
+            unordered_set<string>vis;
             double ans = -1.0;
             
-            if(mp.find(src) != mp.end())
+            if(mp.find(src) != mp.end()) // when a and b vertices are not present 
             dfs(src, dst, mp, vis, ans, 1.0);
         
         res.push_back(ans);
