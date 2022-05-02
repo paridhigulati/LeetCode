@@ -4,17 +4,19 @@ public:
         
         
             //inplace 
-            int i=0, j = nums.size()-1;
+            int i=0, j =0;
             
-            while(i<j)
+            while(i<nums.size())
             {
                 if(nums[i]%2 )
                 {
-                    swap(nums[i], nums[j]);
-                    j--;
+                    i++; 
                 }
-                else{
+                else if(nums[i] % 2 == 0)
+                {
+                    swap(nums[i], nums[j]);
                     i++;
+                    j++;
                 }
             }
             return nums;
