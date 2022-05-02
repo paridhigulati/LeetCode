@@ -9,16 +9,7 @@ public:
         
         int dp[sz+1][m+1][n+1]; // max length of size of m zeroes and n ones 
         
-        // for(int i=0;i<=sz;i++)   // initialization 
-        // {
-        //     for(int j=0;j<=m;j++)
-        //     {
-        //         for(int k=0;k<=n;k++)
-        //         {
-        //             dp[i][j][k] = 0;
-        //         }
-        //     }
-        // }
+ 
        memset(dp,0,sizeof dp);
         int ans=0;
         //fill up the table 
@@ -27,6 +18,7 @@ public:
             
             // int o = count(strs[i-1].begin(), strs[i-1].end(), '1');
             // int z = strs[i-1].size() - o;
+            
             int z=0, o=0;
             for(int itr=0;itr<strs[i-1].size();itr++)
             {
@@ -43,15 +35,15 @@ public:
                     dp[i][j][k] = dp[i-1][j][k];
                     
                     if(j>=z and k>= o)
-                    
+                    //choice 2 
                         dp[i][j][k] = max(dp[i][j][k] , 1+ dp[i-1][j-z][k-o] );
                     
-                    ans = max(ans, dp[i][j][k]);
+                    //ans = max(ans, dp[i][j][k]);
                 }
             }
 
         }
-        return ans;
+        return dp[sz][m][n];
     }
 };
         
