@@ -18,18 +18,28 @@ public:
                 maxi = max(maxi,nums[i]);
             }
         }
+        cout<<maxi<< mini;
         if(mini == INT_MAX && maxi == INT_MIN) // already sorted 
             return 0;
         
-        int start = 0, end = n-1;
+        int start=0 , end=0;
         
-        for(; start < n; start++) {
-            if(nums[start] > mini) break;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(nums[i] > mini)
+            {
+                start = i;
+                break;
+            }
+        }
+        for(int i=n-1;i>=0;i--)
+        {
+            if(nums[i] < maxi)
+            {
+                end = i;
+            break;}
         }
         
-        for(; end >= 0; end--) {
-            if(nums[end] < maxi) break;
-        }
         
         return end-start+1;
     }
