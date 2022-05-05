@@ -6,7 +6,7 @@ public:
         int i=0,j=nums.size()-1;
         int sum = INT_MIN;
         
-        while(i < j )
+        while(i <= j )
         {
             
             sum = max(sum, nums[i++] + nums[j--]);
