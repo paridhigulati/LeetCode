@@ -3,13 +3,16 @@ public:
     
     bool isPalin(string s)
     {
-        int l=0, r= s.size()-1;
-        while(l<r)
-        {
-            if(s[l++] != s[r--])
-            return false;       
-        }
-        return true;
+        // int l=0, r= s.size()-1;
+        // while(l<r)
+        // {
+        //     if(s[l++] != s[r--])
+        //     return false;       
+        // }
+        // return true;
+        string tmp = s;
+         reverse(tmp.begin(), tmp.end());
+        return tmp == s;
     }
     
     void solve(string s, vector<string>temp, vector<vector<string>>& res )
