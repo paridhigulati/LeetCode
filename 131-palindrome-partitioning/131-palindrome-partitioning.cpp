@@ -1,60 +1,51 @@
 class Solution {
-public:
+    
+    private : 
     
     bool isPalin(string s)
     {
-        // int l=0, r= s.size()-1;
-        // while(l<r)
-        // {
-        //     if(s[l++] != s[r--])
-        //     return false;       
-        // }
-        // return true;
         string tmp = s;
-         reverse(tmp.begin(), tmp.end());
+        reverse(tmp.begin(), tmp.end());
         return tmp == s;
+    
     }
     
-    void solve(string s, vector<string>temp, vector<vector<string>>& res )
+public:
+    
+    void solve(string s, vector<vector<string>>& ans, vector<string>partitions)
     {
-        if(s.size()==0) res.push_back(temp);
         
+     // base case 
+        if(s.size()== 0)
+        {
+            ans.push_back(partitions);
+            return;
+        }
         for(int i=0;i<s.size();i++)
         {
-            string leftPart = s.substr(0,i+1);
-            if(isPalin(leftPart))
-            {
-                temp.push_back(leftPart);
-            solve(s.substr(i+1), temp, res);
-            temp.pop_back();
-            }
+        
+        string prefix = s.substr(0, i+1);
+        if(isPalin(prefix))
+        {
+        partitions.push_back(prefix);
+        
+        solve(s.substr(i+1), ans, partitions);
+        
+            partitions.pop_back();
+        }
         }
         
     }
-        
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     vector<vector<string>> partition(string s) {
-        vector<vector<string>>res;
-        vector<string>temp;
-        solve(s,temp,res);
-        return res;
         
+        vector<vector<string>>ans;
+        vector<string>partitions;
         
+        solve(s, ans, partitions);
+        
+        return ans;
     }
 };
