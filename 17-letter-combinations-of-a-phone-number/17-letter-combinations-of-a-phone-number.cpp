@@ -30,11 +30,10 @@ public:
         string mp[10]= {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         
         vector<string> ans ;
-        int index = 0;
-        string tmp; 
+        
         if(digits == "") return ans;
         
-        getComb(mp, digits, index, tmp, ans);
+        getComb(mp, digits, 0, "", ans);
         
         return ans;
         
