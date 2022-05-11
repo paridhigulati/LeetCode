@@ -4,11 +4,11 @@ public:
      
         vector<int>dp(5,1);
         
-        for(int i=2;i<=n;i++)
+        for(int i=1;i<n;i++)
         {
-            for(int j=1;j<5;j++)
+            for(int j=3;j>=0;j--)
             {
-                dp[j] = dp[j] + dp[j-1];
+                dp[j] = dp[j] + dp[j+1];
             }
         }
   return accumulate(dp.begin(), dp.end(),0);   
