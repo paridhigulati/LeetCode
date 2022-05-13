@@ -18,11 +18,14 @@ public:
             }
             else
             {
+                while(freq.size() > 2)
+                {
                 freq[fruits[i]]--;
                 
                if( freq[fruits[i]] == 0)
                    freq.erase(fruits[i]);
                 i++;
+            }
             }
             j++;
         }
