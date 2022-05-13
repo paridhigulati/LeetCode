@@ -1,5 +1,5 @@
 # Longest K unique characters substring
-## Easy 
+##  Easy 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given a string you need to print the size of the longest possible substring that has exactly K&nbsp;unique characters. If there is no possible substring then print -1.</span></p>
 
