@@ -19,12 +19,12 @@ class Solution{
         {
             //st.insert(s[j]);
             mp[s[j]]++;
-            if(mp.size() <k)
-            j++;
-            else if(mp.size() == k)
+            // if(mp.size() <k)
+            // j++;
+             if(mp.size() == k)
             {
                 window = max(window, (j-i+1));
-                j++;
+                //j++;
             }
             else if(mp.size() > k)
             {
@@ -36,8 +36,9 @@ class Solution{
                 
                 i++;
             }
-            j++;
+            // j++;
             }
+            j++;
             // while(st.size() == k)
             // {
             //     window = max(window, (j-i)+1);
