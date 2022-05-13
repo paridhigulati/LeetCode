@@ -21,43 +21,44 @@ public:
  
     Node* connect(Node* root) {
 
-//          at each level, connect previously visited node to curr 
-         if(!root) return root;
-        queue<Node*>q;
-         q.push(root);
-         while(!q.empty())
-         {
-          
-        int n=q.size();
-             for(int i=0;i<n;i++)
-            {
-                 Node* t = q.front();
-                 q.pop();
+    if(!root) return NULL;
         
-                 if(i!=n-1) //  to check if it's not the last node 
-                  t->next = q.front();
-                 if(t->left)
-                     q.push(t->left);
-                if(t->right)
-                    q.push(t->right);
+        queue<Node*>q;
+        q.push(root);
+        
+        while(!q.empty())
+        {
+            int n = q.size();
+            for(int i=0;i<n;i++)
+            {
+                Node* tmp = q.front();
+                q.pop();
+                
+                if(i!=n-1)
+                {
+                    tmp->next = q.front();
+                }
+                if(tmp->left)
+                    q.push(tmp->left);
+                
+                if(tmp->right)
+                    q.push(tmp->right);
             }
-            
         }
-        return root;
-     } };
-    //       Node* connect(Node* root) {
-    //     if(!root)return root;
-    //     queue<Node*> q;
-    //     q.push(root);
-    //     while(!q.empty()){
-    //         int n=q.size();
-    //         for(int i=0;i<n;i++){
-    //             Node* x=q.front();
-    //             q.pop();
-    //             if(i!=n-1)x->next=q.front();
-    //             if(x->left)q.push(x->left);
-    //             if(x->right)q.push(x->right);
-    //         }
-    //     }
-    //     return root;
-    // }
+            return root;
+        }
+    };
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+   
