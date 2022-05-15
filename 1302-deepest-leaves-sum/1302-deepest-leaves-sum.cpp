@@ -26,7 +26,7 @@ public:
         {
              levelSum =0 ; // reset sum at each level until it reaches the last level 
           
-            
+            // har level par sum nikalo aur jab jab ek level end to levelSUm ko zero krdo 
             int  n = q.size();
             for(int i=0;i<n;i++)
             {
