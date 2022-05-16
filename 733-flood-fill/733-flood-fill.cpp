@@ -21,9 +21,7 @@ public:
             int row = q.front().first;
             int col = q.front().second;
             
-            // if(row == sr and col == sc) 
-            //   return image;
-            
+        
         for(auto i : dir)
         {
             int nrow = row + i[0];
