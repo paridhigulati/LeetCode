@@ -16,10 +16,10 @@ class Solution {
     int postorder(TreeNode* root)
     {
        if(!root) return 0;
-        int left= max(postorder(root->left),0);
+        int left= max(postorder(root->left),0); //max with zero so that we dont include the negative numbers 
         int right = max( postorder(root->right),0);
-        maxi= max(maxi , right+left+root->val);
-        return max(right,left) + root->val;
+        maxi= max(maxi , right+left+root->val); // first we take sum
+        return max(right,left) + root->val; // then we want a single max path so we choose the max left or right 
     }
 public:
     int maxPathSum(TreeNode* root) {
@@ -30,4 +30,4 @@ public:
 };
         
         
-      
+      // https://www.youtube.com/watch?v=6cA_NDtpyz8
