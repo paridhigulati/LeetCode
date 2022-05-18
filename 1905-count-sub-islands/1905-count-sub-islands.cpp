@@ -1,43 +1,25 @@
 class Solution {
 public:
-     int countSubIslands(vector<vector<int>>& grid1, vector<vector<int>>& grid2) {
-	int n = grid1.size(),m=grid1[0].size();
-	vector<vector<int>> vis(n, vector<int>(m));
-	int res = 0;
-	for(int i=0;i<n;i++) {
-		for(int j=0;j<m;j++){
-			if(grid2[i][j] == 1 && vis[i][j]==0){
-				if(bfs(grid1,grid2,vis,i,j,n,m)) {
-					res++;
-				}
-			}
-		}
-	}
-	return res;
+vector<vector<bool>> vis;
+         int moves[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}}, m, n, cnt = 0;
+int countSubIslands(vector<vector<int>>& grid1, vector<vector<int>>& grid2) {
+    m = size(grid1), n = size(grid1[0]);
+    vis.resize(m, vector<bool>(n));
+	// iterate over all the cells and start a dfs from unvisited land cell
+    for(int i = 0; i < m; i++) 
+        for(int j = 0; j < n; j++) 
+            if(!vis[i][j] && grid2[i][j]) {   // start a dfs search for island consisting of cell (i,j) in grid2
+                bool ans = true;
+                if(dfs(grid2, grid1, i, j, ans)) cnt++;
+            }
+    return cnt;
 }
-    bool bfs(vector<vector<int>>& grid1, vector<vector<int>>& grid2, vector<vector<int>>& vis, int i,int j,int n, int m) {
-	queue<pair<int, int>> q;
-	q.push({i,j});
-	vis[i][j] = 1;
-	bool res = true;
-	while(!q.empty()) {
-		int r = q.front().first, c = q.front().second;
-		if(grid1[r][c] == 0) res=false;
-		q.pop();
-		int dx[] = {0, 1, 0, -1};
-		int dy[] = {1, 0, -1, 0};
-
-		for(int i = 0; i < 4; i++) {
-			int newX = dx[i] + r;
-			int newY = dy[i] + c;
-
-			if(newX >= 0 && newX < n && newY >= 0 && newY < m && grid2[newX][newY] == 1 && vis[newX][newY] == 0) {
-				q.push({newX, newY});
-				vis[newX][newY] = 1;
-			}
-		}
-	}   
-	return res;
+bool dfs(vector<vector<int> >& grid2,vector<vector<int> >& grid1, int i, int j, bool& ans) {
+    if(i < 0 || i >= m || j < 0 || j >= n || vis[i][j] || grid2[i][j] == 0) return true;        
+    if(grid1[i][j] == 0) ans = false;  // if any of island cell for current island of grid2 is not present in grid1
+    vis[i][j] = true;                  // mark visited for each land cell so that we don't repeat it again
+    for(int k = 0; k < 4; k++) 
+        dfs(grid2, grid1,i + moves[k][0], j + moves[k][1], ans);
+    return ans;
 }
-};   
-   
+};
