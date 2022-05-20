@@ -21,17 +21,18 @@ public:
 // };
       
 
-       ListNode* prev = NULL;
-        ListNode* curr = head;
-        ListNode* fwd;
+    ListNode* prev = NULL , *curr = head, *fwd;
+        
         while(curr)
         {
             fwd = curr->next;
             curr->next = prev;
-            prev = curr;
-            curr = fwd;
+             prev = curr;
+              curr = fwd; 
         }
         return prev;
     }
+        
+        
 };
  
