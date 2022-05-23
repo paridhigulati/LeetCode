@@ -38,7 +38,7 @@ public:
                     //choice 2 
                         dp[i][j][k] = max(dp[i][j][k] , 1+ dp[i-1][j-z][k-o] );
                     
-                    //ans = max(ans, dp[i][j][k]);
+                   
                 }
             }
 
@@ -47,17 +47,4 @@ public:
     }
 };
         
-       
-//        for(int j=0;j<=m;j++)
-//             {
-//                 for(int k=0;k<=n;k++)
-//                 {
-//                     // current string not choosen
-//                     dp[i][j][k] = dp[i-1][j][k];
- 
-//                     // check if current string can be choosen or not
-//                     if(j-zeroes>=0 and k-ones>=0)
-//                         dp[i][j][k] = max(dp[i][j][k],1+dp[i-1][j-zeroes][k-ones]);
- 
-//                     ans = max(ans,dp[i][j][k]);
- 
+// This is a typical 0-1 knapsack problem ... only difference here is that we have to consider 2 wieghts.number of zeroes and number of ones . So what we do is simply traverse through the vector of string and see number of ones and number of zeroes in that string. Now we simply have 2 choices .. either to accept that string or not. In we follow both cases and see which result gives us max result.
