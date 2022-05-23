@@ -21,10 +21,12 @@ public:
           
             else if(arr[mid] < arr[low]) //right part
             {
-                if(target < arr[mid] || target > arr[high] )
-                    high = mid-1;
-                else
+                if(target >= arr[mid] and target <= arr[high] )
+                    
                 low = mid+1;
+                else
+                high = mid-1;
+               
         }
             else
                 low++;
