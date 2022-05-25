@@ -1,14 +1,6 @@
 class Solution {
 public:
     //longest strictly increasing subsequence 
-    
- bool static cmp(vector<int>& a, vector<int>& b){
-       if(a[0] < b[0]) return true;
-     
-       if(a[0] == b[0])
-        return a[1] > b[1];
-     return false;
-    }
 
    
      //int maxEnvelopes(vector<vector<int>>& envelopes) {
@@ -33,27 +25,22 @@ public:
     
     
    
-     int maxEnvelopes(vector<vector<int>>& envelopes) {
-    //int maxEnvelopes(vector<pair<int, int>>& envelopes) {
-       // if (envelopes.empty()) return 0;
-        sort(envelopes.begin(), envelopes.end(),cmp);
-        vector<int> dp;
-        dp.push_back(envelopes[0][1]);
-        int len = 1;
-        for (int i = 1; i < envelopes.size(); ++i)
-         
-        {
-            auto itr = lower_bound(dp.begin(), dp.end(), envelopes[i][1]);
-            if(itr == dp.end())
-            {
-              dp.push_back(envelopes[i][1]);  
-             len++;  
-             }
-            else
-            {
-                *itr = envelopes[i][1];
-            }
-        }
-        return len;
+   
+  static bool compare(vector<int>&a , vector<int>& b)
+    {
+      return a[0]==b[0]?a[1]>b[1]:a[0]<b[0];
+    }
+    int maxEnvelopes(vector<vector<int>>&a) {
+      sort(a.begin(),a.end(),compare);
+      vector<int>dp;
+      for(auto i:a)
+      {
+        auto it=lower_bound(dp.begin(),dp.end(),i[1]);
+        if(it==dp.end())
+          dp.push_back(i[1]);
+        else
+          *it=i[1];
+      }
+      return dp.size();
     }
 };
