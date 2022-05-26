@@ -21,7 +21,7 @@ public:
             int row = q.front().first;
             int col = q.front().second;
               count++;
-            q.pop();
+
             for(auto itr : dir)
             {
                 int nrow = row + itr[0];
@@ -36,6 +36,8 @@ public:
                     
                 }
             }
+                        
+             q.pop();
         }
         
         ans = max(ans,count);
