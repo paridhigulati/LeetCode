@@ -1,39 +1,46 @@
 class Solution {
 public:
     
-    void dfs(vector<vector<int>>& adj, vector<bool>& vis, int node)
+    void dfs(int node, vector<vector<int>>& connections, vector<bool>& vis, int n)
     {
-        vis[node] = true;
-        for(int i : adj[node])
         
-               if(!vis[i])
-                dfs(adj, vis, i);
+        vis[node]=true;
         
-    }
-    int makeConnected(int n, vector<vector<int>>& connections) {
-        
-        //for n components we need atleast n-1 edges
-              if(connections.size() < n - 1)
-            return -1;
-
-        vector<vector<int>>adj(n);
-        
-      for(auto v : connections)
+        for(int i : connections[node])
         {
-            adj[v[0]].push_back(v[1]);
-            adj[v[1]].push_back(v[0]);
+            if(!vis[i])
+                dfs(i, connections, vis,n);
         }
-        int component=0;
-        vector<bool>vis(n,false);
-        for(int i=0; i<n; i++)
+    }
+        
+        
+        
+        
+        
+        
+    
+    int makeConnected(int n, vector<vector<int>>& connections) {
+     
+        vector<bool>vis(n, false);
+        int count =0;
+        vector<vector<int>>adj(n);
+    
+        if(connections.size() < n-1)
+          return -1;
+        
+            for(auto itr : connections)
+        {
+            adj[itr[0]].push_back(itr[1]);
+            adj[itr[1]].push_back(itr[0]);
+        }
+        for(int i=0;i<n;i++)
         {
             if(!vis[i])
             {
-                dfs(adj, vis, i);
-                component++;
+                count++;
+                dfs(i, adj, vis,n);
             }
         }
-        return component-1;
+        return count-1;
     }
-    
 };
