@@ -24,7 +24,7 @@ public:
      
         int n = position.size();
         sort(position.begin(), position.end());
-        int s = 0, e = position[n-1], ans=0;
+        int s = 1, e = position[n-1], ans=0;
         
         while(s <= e)
         {
@@ -33,11 +33,11 @@ public:
             if(isAns(mid, m, position))
             {
                 ans = mid;
-                s = mid+1;
+                s = mid+1; //try widening the gap
             }
             else
             {
-                e = mid-1;
+                e = mid-1;//sufficient gap reached 
             }
         }
         return ans;
