@@ -15,19 +15,21 @@ public:
         for(int i=0;i<n;i++)
         
             sum2 += nums[i];
-            
+            //SUM2 = DESIRED SUM 
             sum2 -=x;
             if(sum2 ==0) // sum of array = X i.e remove all the elements 
               return n;
         
 		// sum2 is desired sum while sum1 is current sum
-        int j,i=0;
-        for(j=0;j<n;j++)
+        int i=0;
+        for(int j=0;j<n;j++)
         {
             sum1+=nums[j];
-			
+			cout<<sum1;
             while(i<n && sum1>sum2) // if sum of current subaaray is greater than desired sum
-                sum1-=nums[i++];
+            {   sum1-=nums[i];
+                 i++;
+            }
 				
             if(sum1==sum2)  // if sum of current subarray is equal to desired sum then update length
                 len=max(len,j-i+1); // we want subarray  with maximum length 
