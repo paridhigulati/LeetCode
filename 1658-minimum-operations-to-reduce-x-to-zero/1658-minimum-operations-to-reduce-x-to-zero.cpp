@@ -1,31 +1,39 @@
 class Solution {
 public:
+    
+    // sum of removed elements = X and we want to remove minimum elemetns hence we can think of it as 
+    // K = sum - X , and we need to maximise this remaining subarray 
+    
+    // now our task is find subaarray whose sum is (sum - X) and its length is maximum ( because we want to remove minimum number of elements , so we will have to maximise remianing element ) .
+    
     int minOperations(vector<int>& nums, int x) {
         
-        unordered_map<int, int>mp;
+     //int i, sum1=0, sum2=0,k=0, n=nums.size(), len=0;
+     int len=0,sum1=0,sum2=0;
+       int n= nums.size();
         
-    int sum=0, res= INT_MIN, n = nums.size();
         for(int i=0;i<n;i++)
-        {
-            sum+=nums[i];
-            mp[sum]=i; //prefix sum with index
+        
+            sum2 += nums[i];
             
-        }
+            sum2 -=x;
+            if(sum2 ==0) // sum of array = X i.e remove all the elements 
+              return n;
         
-        //cout<<sum;
-        int k = sum-x;
-        if(k  < 0) return -1;
-        sum =0 ; 
-        mp[0]=-1;
-        //cout<<k;
-        for(int i=0;i<n;i++)
+		// sum2 is desired sum while sum1 is current sum
+        int j,i=0;
+        for(j=0;j<n;j++)
         {
-            sum+=nums[i];
-            if(mp.find(sum-k) != mp.end())
-            {
-                res = max(res, i - mp[sum-k] );
-            }
+            sum1+=nums[j];
+			
+            while(i<n && sum1>sum2) // if sum of current subaaray is greater than desired sum
+                sum1-=nums[i++];
+				
+            if(sum1==sum2)  // if sum of current subarray is equal to desired sum then update length
+                len=max(len,j-i+1); // we want subarray  with maximum length 
         }
-        return res==INT_MIN?-1:n-res;
+        if(!len)        // No subarray found with desired sum .
+            return -1;
+        return n-len;
     }
 };
