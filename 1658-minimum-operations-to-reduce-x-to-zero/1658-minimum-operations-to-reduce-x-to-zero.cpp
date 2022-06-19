@@ -7,35 +7,50 @@ public:
     // now our task is find subaarray whose sum is (sum - X) and its length is maximum ( because we want to remove minimum number of elements , so we will have to maximise remianing element ) .
     
     int minOperations(vector<int>& nums, int x) {
+   
+        int n = nums.size(),window = INT_MAX, sum=0, op=0;
+        int left=0, right = n-1;
         
-     //int i, sum1=0, sum2=0,k=0, n=nums.size(), len=0;
-     int len=0,sum1=0,sum2=0;
-       int n= nums.size();
-        
-        for(int i=0;i<n;i++)
-        
-            sum2 += nums[i];
-            //SUM2 = DESIRED SUM 
-            sum2 -=x;
-            if(sum2 ==0) // sum of array = X i.e remove all the elements 
-              return n;
-        
-		// sum2 is desired sum while sum1 is current sum
-        int i=0;
-        for(int j=0;j<n;j++)
+        while(left < n)
         {
-            sum1+=nums[j];
-			cout<<sum1;
-            while(i<n && sum1>sum2) // if sum of current subaaray is greater than desired sum
-            {   sum1-=nums[i];
-                 i++;
+            sum += nums[left];
+            op++;
+            if(sum == x) //2stopping points for left : when sum achieved or sum exceeds 
+            {
+                window = op;
+                break;
             }
-				
-            if(sum1==sum2)  // if sum of current subarray is equal to desired sum then update length
-                len=max(len,j-i+1); // we want subarray  with maximum length 
+            else if(sum > x)
+            {
+                break; 
+            }
+            left++;
         }
-        if(!len)        // No subarray found with desired sum .
-            return -1;
-        return n-len;
+        while(right >=0 and left < n)
+        {
+            if(sum + nums[right] > x)
+            {
+                if(left >=  right) // agarleft-- krke left -ve hogya to usko last mai le jao
+                    break; // aur ab left right se bada hence break 
+                
+                sum -= nums[left];
+                left--;
+                 op--;
+                
+                if(left < 0)
+                {
+                left = n-1;
+                }
+            continue;
+        }
+            sum += nums[right];
+            op++;
+            if(sum == x)
+         window = min(window, op);
+            right--;
+            
+        }
+        return window == INT_MAX?-1:window;
     }
 };
+        
