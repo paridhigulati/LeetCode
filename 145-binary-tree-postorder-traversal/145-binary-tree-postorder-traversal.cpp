@@ -12,15 +12,18 @@
 class Solution {
 public:
     vector<int>ans;
-    void dfs(TreeNode* root)
+    
+    void solve(TreeNode* root)
     {
         if(!root) return;
-        dfs(root->left);
-        dfs(root->right);
-    ans.push_back(root->val);
+        
+        solve(root->left);
+        solve(root->right);
+        ans.push_back(root->val);
     }
     vector<int> postorderTraversal(TreeNode* root) {
-        dfs(root);
-        return ans;
+        
+        solve(root);
+     return ans;
     }
 };
