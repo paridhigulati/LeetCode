@@ -17,9 +17,9 @@ public:
         if(p==NULL and q==NULL) return true;
         if(p==NULL || q==NULL) return false;
         
-      //  if(p->val != q->val) return false;
+        if(p->val != q->val) return false;
         
-        return p->val == q->val and  solve(p->left, q->right) and solve(p->right, q->left);
+        return solve(p->left, q->right) and solve(p->right, q->left);
         
         
     }
