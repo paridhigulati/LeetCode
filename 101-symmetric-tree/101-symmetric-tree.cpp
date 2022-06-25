@@ -12,17 +12,22 @@
 class Solution {
 public:
     
-    bool isMirror( TreeNode* t1, TreeNode* t2)
+    bool solve(TreeNode* p, TreeNode* q)
     {
-        if(t1==NULL and t2==NULL) return true;
-        if(t1==NULL || t2==NULL) return false;
+        if(p==NULL and q==NULL) return true;
+        if(p==NULL || q==NULL) return false;
         
-        if(t1->val != t2->val) return false;
+      //  if(p->val != q->val) return false;
         
-        return isMirror(t1->left, t2->right) and isMirror(t1->right, t2->left);
+        return p->val == q->val and  solve(p->left, q->right) and solve(p->right, q->left);
+        
+        
     }
     bool isSymmetric(TreeNode* root) {
-        
-        return isMirror(root->left, root->right);
+     
+        return solve(root->left, root->right);
     }
 };
+     
+        
+       
