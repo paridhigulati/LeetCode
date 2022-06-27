@@ -11,29 +11,36 @@
  */
 class Solution {
 public:
-    TreeNode* build(vector<int>&  inorder, int inStart, int inEnd, vector<int>& postorder, int postStart, int postEnd, map<int,int>&  mp)
+    
+    
+    TreeNode* build(vector<int>& inorder, int is, int ie, vector<int>& postorder, int ps, int pe, unordered_map<int, int>&mp )
     {
-        if(inStart > inEnd || postStart > postEnd) return NULL;
-        TreeNode* root = new TreeNode( postorder[postEnd]);
+  if(is > ie || ps > pe) return NULL;
+        TreeNode* root = new TreeNode( postorder[pe]);
+        int inr =  mp[postorder[pe]];
         
-        int inRoot = mp[postorder[postEnd]];
-        int countL = inRoot - inStart;
+        int countL = inr -  is;
         
-        root->left = build(inorder, inStart, inRoot-1, postorder, postStart, postStart + countL -1,mp );
+       
         
-        root->right = build(inorder, inRoot+1, inEnd, postorder, postStart+countL, postEnd-1,mp);
+        root->left =  build(inorder, is, inr-1, postorder, ps, ps + countL-1, mp );
+        root->right = build(inorder, inr+1, ie, postorder, ps + countL, pe-1,mp );
         
         return root;
+       
+
+        
+        
+        
     }
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-       
-        if(inorder.size()!=postorder.size()) return NULL;
-        map<int,int>mp;
-        for(int i=0;i<inorder.size();i++)
-        {
-            mp[inorder[i]]=i;
-        }
-         return   build(inorder, 0, inorder.size()-1, postorder, 0, postorder.size()-1,mp);
         
+        unordered_map<int,int>mp;
+        if(inorder.size()!= postorder.size())  return NULL;
+
+        for(int i=0;i<inorder.size();i++)
+        mp[inorder[i]] =  i;
+        
+        return build(inorder, 0, inorder.size()-1,postorder, 0, postorder.size()-1 , mp);
     }
 };
