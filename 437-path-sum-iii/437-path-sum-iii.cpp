@@ -12,35 +12,24 @@
 class Solution {
 public:
    
-      void solve(TreeNode*root,int &k,int &cnt,vector<int>&path){
-        
-        //base case
-        if(root==NULL)return;
-        
-        //pushing elements in vector
-        path.push_back(root->val);
-        
-        //recursive call
-        solve(root->left,k,cnt,path);
-        solve(root->right,k,cnt,path);
-        
-        //we will check if sum equals our targetSum or not
-        
-        int size = path.size()-1;
-       long long int sum = 0;
-        for(int i = size;i>=0;i--){
-            sum+=path[i];
-            if(sum==k)cnt++;
+       int ans=0;
+    void help(TreeNode* &root,int &tar,long long sum,unordered_map<int,int>mp){
+        if(!root) return ;
+        sum+=root->val;
+        if(mp.find(sum-tar)!=mp.end()){
+            ans+=mp[sum-tar];
         }
-        
-        //while returning we will pop.
-        path.pop_back();
+        mp[sum]++;
+        help(root->left,tar,sum,mp);
+        help(root->right,tar,sum,mp);
+        mp[sum]--;
     }
     
     int pathSum(TreeNode* root, int targetSum) {
-        vector<int>path;
-        int cnt=0;
-        solve(root,targetSum,cnt,path);
-        return cnt;
+        if(!root) return 0;
+        unordered_map<int,int>mp;
+        mp.insert({0,1});
+        help(root,targetSum,0,mp);
+        return ans;
     }
 };
