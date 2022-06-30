@@ -1,24 +1,56 @@
 class MyHashSet {
     
-    private: 
-      vector<bool>v;
-public:
-    MyHashSet() : v(1e6 + 1, false) {}
-  
+    private : 
+     vector<list<int>>v; 
+     int size;
     
+public:
+    
+    MyHashSet()
+    {
+      size = 1e6 + 1;
+    
+     v.resize(size);
+    }
+    
+    //hash function 
+    
+     int hash(int key )
+     {
+       return  key % size ;
+     }
+    
+    //function to search through the linked list 
+    list<int> :: iterator search(int key)
+    {
+        int index = hash(key);
+       return find(v[index].begin() , v[index].end(), key );
+            
+    }
     void add(int key) {
         
-        v[key] = true;
-    } 
+        //check if already present 
+        if(contains(key)) return;
+        
+        int index=  hash(key);
+        v[index].push_back(key);
+    }
     
     void remove(int key) {
-        v[key] = false;
+        
+       if(!contains(key)) return;
+        
+        int index = hash(key);
+        v[index].erase(search(key));
+        
+        
     }
     
     bool contains(int key) {
         
-        if(v[key])
-        return true;
+        int index = hash(key);
+        if (search(key) != v[index].end()) return true;
+        
         return false;
     }
 };
