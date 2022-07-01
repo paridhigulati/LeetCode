@@ -4,39 +4,53 @@
 
 
 class LRUCache {
-    private: 
-    unordered_map<int,int>mp;
-    unordered_map<int, list<int> :: iterator>address; // maps key to corresponding node in LL 
-    list<int>dll;
+     private: 
+    //One map to store the key and its corresponding value to facilitate O(1) time complexity
+
+     unordered_map<int,int>mp;
+    //Similarly, one map to store the key and its corresponding positionn in the list
+     unordered_map<int, list<int> :: iterator>address; // maps key to corresponding node in LL 
+    //A doubly linked list of keys
+
+     list<int>dll;
+    //Global variable siz and cap for other functions to know size and the total capacity of the cache
+
     int size; //elements stored till now 
-    int cap;
-public:
-    LRUCache(int capacity) {
-        cap = capacity;
-        size = 0;
-    }
-    
-    int get(int key) {
+     int cap;
+ public:
+     LRUCache(int capacity) {
+       cap=capacity;//Initializing the LRU cache with the given positive size capacity.
+        size=0;//Keeping count of the total existing elements, which is initially 0
+}
+     int get(int key) {
         
          if(mp.find(key) == mp.end())    
         return -1;
-                //to make it most recently : need to get the node and for that we make another map
+//                 //to make it most recently : need to get the node and for that we make another map
         
-       list<int> :: iterator it = address[key]; //node ka address pta chlgya jaha delete krna h
+
+        //Since key exists we have to move key to front of the list (as it is now the least recently used cache) and return val
         
+        //So, firstly erase key and its old position
+        list<int> :: iterator it = address[key]; //node ka address pta chlgya jaha delete krna h
+        //Get the position of key in the list. This helps for searching list in O(1) throughout code.
         dll.erase(it);
         address.erase(key); //map mai se bhi delete
         dll.push_front(key); //list ke head mai insert
-        address[key] = dll.begin(); //map mai list ka address update 
-        return mp[key];
+ //Now push the key at front of the list and update its position in our map
+         address[key] = dll.begin(); //map mai list ka address update 
+         return mp[key];
         
        
-    }
-    
-    void put(int key, int value) {
+     }
+            /*\U0001f4a1We have to place the key at front as it is now the LRU .
+        If it already exists in the cache so firstly delete it and put up front.
+        Also we have to evict the last key from our list if the capacity is already full. 
+        Will write similar code like get () and simply mantain the data strucure we have created to facilitate O(1) average time complexity. */
+     void put(int key, int value) {
         
-        //key already exist, not key-value pair so purani wali delete krdo aur new updae
-        if(mp.find(key) != mp.end())
+//         //key already exist, not key-value pair so purani wali delete krdo aur new updae
+         if(mp.find(key) != mp.end())
         {
             dll.erase(address[key]);
               address.erase(key);
@@ -64,9 +78,20 @@ public:
     }
 };
 
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache* obj = new LRUCache(capacity);
- * int param_1 = obj->get(key);
- * obj->put(key,value);
- */
+// /**
+//  * Your LRUCache object will be instantiated and called as such:
+//  * LRUCache* obj = new LRUCache(capacity);
+//  * int param_1 = obj->get(key);
+//  * obj->put(key,value);
+//  */
+    
+
+	
+ 
+        
+     
+        
+     
+    
+	
+  
