@@ -35,7 +35,7 @@ You don't have to read input or print anything. Your task is to complete the fun
 
 <div><span style="font-size:18px"><strong>Expected Time Complexity: </strong>O(n)</span></div>
 
-<div><span style="font-size:18px"><strong>Expected Auxiliary Space: </strong>O(1)</span></div>
+<div><span style="font-size:18px"><strong>Expected Auxiliary Space: </strong>O(log(n))</span></div>
 
 <p><span style="font-size:18px"><strong>Constraints:</strong><br>
 1 &lt;= N &lt;= 10<sup>5</sup><br>
