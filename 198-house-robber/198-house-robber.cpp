@@ -1,25 +1,26 @@
 class Solution {
 public:
     
-    int solve(vector<int>& nums, int i, vector<int>& dp)
-    {
-        if(i < 0 ) return 0;
-        if(i == 0) return nums[i];
-        
-        
-        
-        if(dp[i]!= -1) return dp[i];
-        
-        int pick = nums[i] + solve(nums, i-2, dp);
-        int npick = solve(nums, i-1, dp);
-        
-        return dp[i] =  max(pick, npick);
-    }
+   
     int rob(vector<int>& nums) {
+
         
-        vector<int>dp(nums.size(),-1);
-     
-     return  solve(nums, nums.size()-1, dp);
-       }
-    
+            int n = nums.size();
+        // prev is equivalent to, dp[i-1]
+        int prev = nums[0]; // why so? if imagine i have a array of length 1 only so i will pick the 0th index
+        
+        // prev 2 is equivalent to dp[i-2]
+        int prev2 = 0;
+        
+        // 0th index already done, solving for 1 to n-1 index
+        for(int i=1;i<n;i++) {
+            int take = nums[i] + prev2;
+            int notTake = prev;
+            int cur = max(take, notTake);
+            prev2 = prev;
+            prev = cur;
+        }
+        
+        return prev;
+    }
 };
