@@ -104,42 +104,39 @@ struct Node
 class Solution
 {
     public:
-    //Function to return a list of nodes visible from the top view 
-    //from left to right in Binary Tree.
+   
     vector<int> topView(Node *root)
     {
-        map<int,int>mp; // horizontal , node val
-        queue<pair<Node*, int>>q; // node val, horizontal
-        
-        q.push({root, 0});
-        while(!q.empty())
-        {
-            auto tmp = q.front();
-            q.pop();
-            
-            Node* frontNode = tmp.first;
-            int hd = tmp.second;
-            
-            if(mp.find(hd) == mp.end()) //unvisited
-            mp[hd] = frontNode->data;
-            
-            if(frontNode->left)
-            q.push({frontNode->left, hd-1});
-            if(frontNode->right)
-            q.push({frontNode->right, hd+1});
-            
-            
-        }
-        vector<int>ans;
-        
-        for(auto it : mp)
-        {
-            ans.push_back(it.second);
-        }
-        return ans;
+       map<int,int>mp; //hd, node val
+       queue<pair<Node*, int>>q; 
+       
+       q.push({root,0});
+       vector<int>ans;
+       while(!q.empty())
+       {
+           auto tmp = q.front();
+           auto node = tmp.first;
+           int hd = tmp.second;
+           q.pop();
+           
+           if(mp.find(hd) == mp.end())
+           mp[hd] = node->data;
+           
+           //ans.push_back(tmp->data);
+           if(node->left)
+           q.push({node->left, hd-1});
+           if(node->right)
+           q.push({node->right, hd+1});
+       }
+       for(auto i : mp)
+       {
+           ans.push_back(i.second);
+       }
+       
+       return ans;
     }
-};
 
+};
 
 
 // { Driver Code Starts.
