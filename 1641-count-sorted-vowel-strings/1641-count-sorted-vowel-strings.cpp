@@ -2,15 +2,15 @@ class Solution {
 public:
     int countVowelStrings(int n) {
     
-        vector<int>dp(5, 1);
-        for(int i=0;i<n;i++)
+   int a =1, e=1,i=1,o=1,u=1;
+        
+        while(--n)
         {
-            for(int j=1;j<5;j++)
-            {
-            dp[j] += dp[j-1];
+            o +=u ;
+            i +=o;
+            e+=i;
+            a+=e;
         }
-        }
-        return dp[4];
+        return a+e+i+o+u;
     }
-    
 };
