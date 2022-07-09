@@ -1,21 +1,35 @@
 class Solution {
 public:
- 
     
-     bool func(int n, vector<int> &arr){
-        if (n==0) return true;
-        if (arr[n] != -1) return arr[n];
+ int dp[1001];
+    
+    bool solve(int n)
+    {
+        if(n==1) return 0;
         
-        for (int x = 1; x < n; x++){
-            if (n%x==0){
-                return arr[n] = !func(n-x, arr);
+        if(dp[n]!= -1)
+         return dp[n];
+        
+        else
+        {
+        for(int i=1;i<n;i++)
+        {
+            if(n%i == 0 )
+            {
+                if( solve(n-i) ==0)
+                    return dp[n]=1;
             }
         }
-        return arr[n] =  false;
+        
+        return dp[n] = 0;
+        }
     }
+
+
     
     bool divisorGame(int n) {
-        vector<int> arr(1001, -1);
-        return func(n, arr);
+        memset(dp,-1,sizeof dp);
+        return solve(n);
     }
+    
 };
