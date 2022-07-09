@@ -12,7 +12,7 @@ public:
         
         else
         {
-        for(int i=1;i<n;i++)
+        for(int i=1;i<(sqrt(n));i++)
         {
             if(n%i == 0 )
             {
