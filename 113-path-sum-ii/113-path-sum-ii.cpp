@@ -10,35 +10,33 @@
  * };
  */
 class Solution {
+     
+    
 public:
-            vector<vector<int>>ans;
-   vector<int>v;
-   void dfs(TreeNode* root, int target, int curr)
+    
+    void dfs(TreeNode* root, int sum,vector<int> tmp, vector<vector<int>>& ans)
     {
+        if(!root) return;
+       // vector<int>tmp;
         
-        
-
-      if(!root) return;
-        curr += root->val;
-       v.push_back(root->val);
-       
-        if(root->left == NULL and root->right==NULL )
+        if(!root->left and !root->right and sum-root->val == 0)
         {
-            if(curr == target)
-                ans.push_back(v);
+            tmp.push_back(root->val);
+            ans.push_back(tmp);
+            return ;
         }
+        tmp.push_back(root->val);
         
-       else
-       {
-           dfs(root->left, target, curr );
-           dfs(root->right, target, curr);
-       }
+        dfs(root->left, sum-root->val,tmp, ans);
+        dfs(root->right, sum-root->val,tmp, ans);
         
-        v.pop_back();
+        
     }
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
-        
-        dfs(root, targetSum, 0);
+        vector<vector<int>> ans;
+        vector<int>tmp;
+         dfs(root, targetSum, tmp , ans);
         return ans;
     }
 };
+
