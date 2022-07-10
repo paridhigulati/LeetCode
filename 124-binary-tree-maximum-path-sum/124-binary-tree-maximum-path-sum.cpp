@@ -10,24 +10,30 @@
  * };
  */
 class Solution {
-    private :
-    int maxi = INT_MIN;
-    private :
-    int postorder(TreeNode* root)
-    {
-       if(!root) return 0;
-        int left= max(postorder(root->left),0); //max with zero so that we dont include the negative numbers 
-        int right = max( postorder(root->right),0);
-        maxi= max(maxi , right+left+root->val); // first we take sum
-        return max(right,left) + root->val; // then we want a single max path so we choose the max left or right 
-    }
+    private: int maxSum = INT_MIN; //since we are having negative so cannot be 0  
 public:
+    
+    int getSum(TreeNode* root)
+    {
+        if(!root) return 0; 
+        //performs postorder
+        int left = max(getSum(root->left), 0);
+        int right = max(getSum(root->right), 0);
+        
+        maxSum  = max(maxSum, left+right+ root->val);
+        //EDGE CASE => IF WE GET NEG LEFT/RIGHT, REPLACE IT WITH ZERO
+        return max(left, right) + root->val;
+        
+    }
     int maxPathSum(TreeNode* root) {
+  
+        
+        if(!root) return 0;
+        
+          getSum(root);
+            
+            return maxSum;
+        
      
-        postorder(root);
-        return maxi;
     }
 };
-        
-        
-      // https://www.youtube.com/watch?v=6cA_NDtpyz8
