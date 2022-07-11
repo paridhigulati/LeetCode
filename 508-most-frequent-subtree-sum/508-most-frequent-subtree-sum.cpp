@@ -10,50 +10,52 @@
  * };
  */
 class Solution {
-private:    unordered_map<int,int>mp;
 public:
-
-
-      
-     
-   int  dfs(TreeNode* root, int &maxf, vector<int>& ans)
+     unordered_map<int, int>mp; //sum ---freq mapping 
+    
+    int dfs(TreeNode* root, int & maxi)
     {
-        
-      
-       
         if(!root) return 0;
         
-        int left = dfs(root->left, maxf, ans);
-        int right = dfs(root->right, maxf, ans);
+        int left = dfs(root->left, maxi);
+        int right = dfs(root->right, maxi);
         
-        int sum = left + right + root->val;
+        int value = root->val;
         
-        mp[sum]++;
-      
-           if( mp[sum] == maxf)
-           ans.push_back(sum);
-       
-      else if( mp[sum] > maxf)
-       {
-           maxf = mp[sum]; 
-           ans.clear();
-           ans.push_back(sum);
-       }
-       return sum;
-
+        mp[left+right+value]++;
+        
+        if(maxi < mp[left+right+value])
+            maxi =  mp[left+right+value];
+        
+        root->val =  left+right+value;
+        return  left+right+value;
+        
     }
     vector<int> findFrequentTreeSum(TreeNode* root) {
-         vector<int>ans;
-
-         int maxf = 0;
-         dfs(root, maxf, ans);
         
-       return ans;
+    // sum up in bottom up manner and keep updating the frequency  
+        vector<int>ans;
+        if(!root) return ans;
         
+       
         
+        int maxi = 0;
+    
+        dfs(root,maxi);
+        
+      
+        for(auto x:mp){
+            if(x.second==maxi){
+                ans.push_back(x.first);
+        
+                }
+        }
+            
+            return ans;
+            
+            
     }
 };
 
 
 
-      
