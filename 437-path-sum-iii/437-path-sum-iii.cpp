@@ -11,25 +11,20 @@
  */
 class Solution {
 public:
-   
-       int ans=0;
-    void help(TreeNode* &root,int &tar,long long sum,unordered_map<int,int>mp){
-        if(!root) return ;
-        sum+=root->val;
-        if(mp.find(sum-tar)!=mp.end()){
-            ans+=mp[sum-tar];
+
+      int ans=0;
+    int pathSum(TreeNode* root, int sum) {
+        if(root){
+            dfs(root,sum);
+            pathSum(root->left,sum);
+            pathSum(root->right,sum);
         }
-        mp[sum]++;
-        help(root->left,tar,sum,mp);
-        help(root->right,tar,sum,mp);
-        mp[sum]--;
-    }
-    
-    int pathSum(TreeNode* root, int targetSum) {
-        if(!root) return 0;
-        unordered_map<int,int>mp;
-        mp.insert({0,1});
-        help(root,targetSum,0,mp);
         return ans;
+    }
+    void dfs(TreeNode* root, long long sum){
+        if(!root)return;
+        if(root->val==sum)ans++;
+        dfs(root->left,sum-root->val);
+        dfs(root->right,sum-root->val);
     }
 };
