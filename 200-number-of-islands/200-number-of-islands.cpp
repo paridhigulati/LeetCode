@@ -1,9 +1,10 @@
 class Solution {
 public:
     int numIslands(vector<vector<char>>& grid) {
+     
+        int n=grid.size(), m=grid[0].size();
         
-        int n = grid.size(), m = grid[0].size();
-        int count = 0;
+        int count=0;
         
         for(int i=0;i<n;i++)
         {
@@ -11,7 +12,8 @@ public:
             {
                 if(grid[i][j] == '1')
                 {
-                   bfs(i,j,grid);
+                    
+                    bfs(i,j,grid);
                     count++;
                 }
             }
@@ -19,39 +21,39 @@ public:
         return count;
     }
     
-    void bfs(int i, int j, vector<vector<char>>& grid)
-    {
-      int n = grid.size();
+        
+        void bfs(int i, int j, vector<vector<char>>& grid){
+                 
+         int n = grid.size();
         int m = grid[0].size();
+                    vector<vector<int>>dir = {{0,1}, {1,0}, {-1,0}, {0,-1}};
+
         
          queue<pair<int,int>>q;
-        
-         q.push(make_pair(i,j));
-        
-        grid[i][j]= '0'; 
-    
-        vector<vector<int>>dir = { {0,1}, {1,0}, {0,-1}, {-1,0}};
-        
+            
+        q.push({i,j});
+            grid[i][j] = '0';
+            
         while(!q.empty())
         {
-            int row = q.front().first;
-            int col = q.front().second;
-           // q.pop();
-            for(auto itr : dir)
-            {
-                  int nrow = row + itr[0];
-                int ncol = col + itr[1];
+            
+                auto it = q.front();
+                q.pop();
                 
-                if(nrow >= 0 and nrow < n and ncol >= 0 and ncol <m and grid[nrow][ncol] =='1')
+                for(auto itr : dir)
                 {
-                    grid[nrow][ncol] = '0';
-                    q.push((make_pair(nrow, ncol)));
+                   
+                    int x = it.first + itr[0];
+                    int y = it.second + itr[1];
                     
+                    if(x>=0 and x<n and y>=0 and y<m and grid[x][y] == '1')
+                    {
+                        grid[x][y]='0';
+                        q.push({x,y});
+                    }
                 }
-            }
-            q.pop();
+            
         }
-}
+        
+    }
 };
-    
-   
