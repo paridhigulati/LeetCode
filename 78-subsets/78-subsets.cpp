@@ -1,42 +1,30 @@
 class Solution {
 public:
+    vector<vector<int>>ans;
     
-    
-    void getSubset(int i, vector<int>& nums, vector<int>& curr, vector<vector<int>>& ans)
+    void getSubset(vector<int>nums, int idx, vector<int>curr)
     {
-        if(i==nums.size())
+        int n= nums.size();
+        if(idx==n)
         {
             ans.push_back(curr);
-                return;
+            return;
         }
-    //     //pick
-        curr.push_back(nums[i]);
-        getSubset(i+1, nums,curr,ans);
         
-        //not pick
-        curr.pop_back();
-        getSubset(i+1,nums, curr, ans);
+        
+            
+            curr.push_back(nums[idx]);
+            getSubset(nums, idx+1, curr);
+            
+            curr.pop_back();
+            getSubset(nums, idx+1, curr);
+            
+        
     }
-    
-
     vector<vector<int>> subsets(vector<int>& nums) {
-      
-        
-        // each element has 2 choices 
         vector<int>curr;
-        vector<vector<int>>ans;
         
-        getSubset( 0,nums,curr, ans);
-        
+        getSubset(nums, 0, curr);
         return ans;
     }
 };
-
-
-
-    
-    
-
-
-
-    
