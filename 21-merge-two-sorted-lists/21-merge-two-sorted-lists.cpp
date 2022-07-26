@@ -10,10 +10,9 @@
  */
 class Solution {
 public:
-
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-      
-        ListNode* tmp = new ListNode(0);
+        
+     ListNode* tmp = new ListNode(0);
         ListNode* ans = tmp;
        
         while(l1 and l2)
@@ -31,5 +30,6 @@ public:
         }
         ans ->next = l1?l1:l2;
         return tmp->next;
+    
     }
 };
