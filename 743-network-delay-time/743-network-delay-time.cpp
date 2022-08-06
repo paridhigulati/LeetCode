@@ -1,54 +1,38 @@
 class Solution {
 public:
-    int networkDelayTime(vector<vector<int>>& times, int n, int k) {
+    int networkDelayTime(vector<vector<int>>& times, int n, int src) {
      
-          vector<int> cost(n+1, INT_MAX);
-        cost[0] = 0;
-        
-        queue<int> q;
-        q.push(k);
-        
-		//since the cost to k was 0
-        cost[k] = 0;
-        
-        while(!q.empty())
-        {
-            int sz = q.size();
-            for(int i=0; i<sz; i++)
-            {
-                int front = q.front();
-                q.pop();
-                
-				//check for all the edges that originate from front
-				
-                for(int j=0; j<times.size(); j++)
-                {
-					// we got such an edge
-					
-                    if(front == times[j][0])
-                    {
-						//totalCost to reach our edge will be cost to reach front + edge cost
-						
-                        int totalCost = cost[front] + times[j][2];
-                        
-						//if this newCost is less than the previous one then we update the cost  and
-						//push that element to the queue since it can generate paths that will result 
-						//in minimum cost if its possible
-						
-                        if(cost[times[j][1]] > totalCost)
-                        {
-                            cost[times[j][1]] = totalCost;
-                            q.push(times[j][1]);
-                        }
-                        
-                    }
-                }
-            }
+         vector<pair<int,int>> adj[n+1];
+        for(int i=0; i<times.size(); i++){
+            adj[times[i][0]].push_back({times[i][1], times[i][2]}); //we have stored the data in adj list
         }
         
-        int mx = *max_element(cost.begin(), cost.end());
+        priority_queue <pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> > minh; //minheap (wt, node)
+        vector<int> mintime(n+1, INT_MAX);
+        mintime[src] =0;
+        minh.push({0,src});
         
-        return mx == INT_MAX ? -1 : mx;
+        while(minh.size()!=0){
+            auto topnode = minh.top();
+            int nod = topnode.second;
+            int t = topnode.first;
+            minh.pop();
+            
+            for(int i=0; i<adj[nod].size(); i++){
+                
+                if(mintime[adj[nod][i].first] > t + adj[nod][i].second){
+                    mintime[adj[nod][i].first] = t+ adj[nod][i].second;
+                    minh.push({mintime[adj[nod][i].first], adj[nod][i].first});
+                }
+            }
+            
+        }
+        int anstime = -1;
+        for(int i=1; i<mintime.size(); i++){    //we are starting it from 1 bcz 0th index is dummy and nodes are named from 1---n
+            anstime = max(anstime, mintime[i]);
+        }
+        if(anstime == INT_MAX) return -1;
+        return anstime;
     }
 };
-   
+  
